@@ -6,6 +6,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `sudo apt install nodejs`
+Before installing npm, install nodejs
+
+### `npm install`
+First of all to install npm.
+
 ### `npm start`
 
 Runs the app in the development mode.\
