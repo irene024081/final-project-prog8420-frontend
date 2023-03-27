@@ -1,5 +1,9 @@
 export const CategoriesData = [
   {
+    _id: '0',
+    title: 'Sort By Category',
+  },
+  {
     _id: '1',
     title: 'Romantic',
   },

@@ -1,4 +1,4 @@
-import { Listbox } from '@headlessui/react';
+import { Listbox, Combobox } from '@headlessui/react';
 import React, { useState, Fragment } from 'react';
 import { CategoriesData } from '../Data/CategoriesData';
 import { FaAngleDown, FaCheck } from 'react-icons/fa';
@@ -22,16 +22,18 @@ const RatesData = [
 ];
 
 const ProducerData = [
+  { title: 'Sort By Producers' },
   { title: 'Zack Snyder' },
   { title: 'James Wan' },
   { title: 'Justin Baldoni' },
 ];
 
 function Filters() {
-  const [category, setCategory] = useState({ title: 'Category' });
+  const [category, setCategory] = useState({ title: 'Sort By Category' });
   const [year, setYear] = useState(YearData[0]);
   const [rates, setRates] = useState(RatesData[0]);
-  const [producer, setProducer] = useState(RatesData[0]);
+  const [producer, setProducer] = useState(ProducerData[0]);
+  const [query, setQuery] = useState('');
 
   const Filter = [
     {
@@ -67,13 +69,19 @@ function Filters() {
                 <FaAngleDown className="h-4 w-4" aria-hidden="true" />
               </span>
             </Listbox.Button>
+            {/* <Transition
+              as={Fragment}
+              leave="transition ease-in duration-100"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            > */}
             <Listbox.Options className="absolute z-10 mt-1 w-full bg-white border border-gray-800 text-dryGray rounded-md shadow-lg max-h-60 py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
               {item.items.map((item, i) => (
                 <Listbox.Option
                   key={i}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-subMain text-white' : 'text-main'
+                      active ? 'bg-submain text-white' : 'text-main'
                     }`
                   }
                   value={item}
@@ -97,6 +105,7 @@ function Filters() {
                 </Listbox.Option>
               ))}
             </Listbox.Options>
+            {/* </Transition> */}
           </div>
         </Listbox>
       ))}

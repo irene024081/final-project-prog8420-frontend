@@ -25,9 +25,9 @@ function NavBar() {
             <form className="w-full text-sm bg-dryGray rounded flex-btn gap-4">
               <button
                 type="submit"
-                className="bg-submain w-12 flex-colo h-12 rounded text-white"
+                className="bg-submain w-20 flex-colo h-12 rounded text-white"
               >
-                11
+                search
               </button>
               <input
                 type="text"
@@ -42,10 +42,6 @@ function NavBar() {
             <NavLink to="/contact-us">Contact Us</NavLink>
             <NavLink to="/login">
               <CgUser className="w-8 h-8" />
-            </NavLink>
-            <NavLink to="/favorites" className={`relative`}>
-              <FaHeart className="w-6 h-6" />
-              <div className="w-5 h-5 flex-colo rounded-full text-xs bg-subMain text-white absolute -top-5 -right-1"></div>
             </NavLink>
           </div>
         </div>
