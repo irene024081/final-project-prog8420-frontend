@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useContext } from 'react';
 import HomeScreen from './Screens/HomeScreen';
 import AboutUs from './Screens/AboutUs';
 import NotFound from './Screens/NotFound';
@@ -14,9 +14,12 @@ import ToWatchMovies from './Screens/Dashboard/ToWatchMovies';
 import WatchedList from './Screens/Dashboard/WatchedList';
 import { Movies } from './Data/MovieData';
 import WatchList from './Screens/Dashboard/WatchList';
+import AuthContext from './store/auth-context';
 
 function App() {
-  const [FetchedMovies, setFetchedMovies] = useState([Movies]);
+  const ctx = useContext(AuthContext);
+
+  const [FetchedMovies, setFetchedMovies] = useState([]);
   const getMoviesHandler = useCallback(async () => {
     try {
       const response = await fetch('http://watchmate.jiakuan.xyz/movie/');
@@ -40,17 +43,20 @@ function App() {
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="*" element={<NotFound />} />
-      <Route path="/movies" element={<MoviePage />} />
+      <Route path="/movies" element={<MoviePage movies={FetchedMovies} />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/to-watch" element={<ToWatchMovies />} />
       <Route path="/watched" element={<WatchedList />} />
       <Route path="/password" element={<Password />} />
-      <Route path="/movie/:id" element={<SingleMovie movies={Movies} />} />
+      <Route
+        path="/movie/:id"
+        element={<SingleMovie movies={FetchedMovies} />}
+      />
       <Route
         path="/single-watchlist"
-        element={<WatchList Movies={Movies.slice(0, 5)} />}
+        element={<WatchList Movies={FetchedMovies.slice(0, 5)} />}
       />
     </Routes>
   );

@@ -30,7 +30,14 @@ export const Select = ({ label, options, onChange }) => {
   );
 };
 
-export const Input = ({ label, placeholder, type, bg, onChange }) => {
+export const Input = ({
+  label,
+  placeholder,
+  type,
+  bg,
+  onChange,
+  onRegister,
+}) => {
   return (
     <div className="text-sm w-full">
       <label className="text-border font-semibold">{label}</label>

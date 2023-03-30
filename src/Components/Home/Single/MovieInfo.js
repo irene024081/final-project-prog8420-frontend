@@ -1,9 +1,10 @@
 import React from 'react';
+import WatchlistMenu from './WatchlistMenu';
 
 function MovieInfo({ movie, setModalOpen }) {
   return (
     <div className="w-full xl:h-screen relative text-white">
-      <div className=" bg-dry flex-colo md:bg-opacity-90 xl:absolute top-0 left-40 right-0 bottom-0">
+      <div className=" bg-dry flex-colo md:bg-opacity-90 xl:absolute top-0 md:mx-20 right-0 bottom-0">
         <div className="container px-3 mx-auto 2xl:px-32 md:grid grid-cols-3 flex-colo py-10 md:py-20 gap-8">
           <div className="md:col-span-1 w-full md:order-none order-last h-header bg-dry border border-gray-800 rounded-lg overflow-hidden">
             <img
@@ -27,6 +28,9 @@ function MovieInfo({ movie, setModalOpen }) {
               </div>
               {/* description */}
               <p className="text-text text-sm leading-7">{movie?.desc}</p>
+              <div className="flex-colo bg-subMain  px-2 py-1">
+                <WatchlistMenu />
+              </div>
             </div>
           </div>
         </div>

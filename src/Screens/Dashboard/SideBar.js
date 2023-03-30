@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaListAlt, FaHeart } from 'react-icons/fa';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { FiSettings } from 'react-icons/fi';
 import Layout from '../../Layout/Layout';
 import { NavLink } from 'react-router-dom';
+import AuthContext from '../../store/auth-context';
 
 function SideBar({ children }) {
+  const authCtx = useContext(AuthContext);
+
   const SideLinks = [
     {
       name: 'Update Profile',
@@ -34,7 +37,9 @@ function SideBar({ children }) {
     'rounded font-medium text-sm transitions flex gap-3 items-center p-4';
   const Hover = ({ isActive }) =>
     isActive ? `${active} ${inActive}` : `${inActive} ${hover}`;
-
+  const onLogoutHandler = () => {
+    authCtx.onLogout();
+  };
   return (
     <Layout>
       <div className="min-h-screen container mx-auto px-2">
@@ -48,6 +53,14 @@ function SideBar({ children }) {
                 </NavLink>
               ))
             }
+            <NavLink
+              onClick={onLogoutHandler}
+              to={'/'}
+              key={SideLinks.length}
+              className={Hover}
+            >
+              <RiLockPasswordLine /> <p>Log Out</p>
+            </NavLink>
           </div>
           <div
             data-aos="fade-up"

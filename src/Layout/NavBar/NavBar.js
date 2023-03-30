@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FaSearch, FaHeart } from 'react-icons/fa';
 import { CgUser } from 'react-icons/cg';
+import AuthContext from '../../store/auth-context';
 
 function NavBar() {
+  const authCtx = useContext(AuthContext);
   return (
     <>
       <div className="bg-main shadow-md sticky top-0 z-20">
@@ -40,7 +42,7 @@ function NavBar() {
             <NavLink to="/movies">Movies</NavLink>
             <NavLink to="/about-us">About Us</NavLink>
             <NavLink to="/contact-us">Contact Us</NavLink>
-            <NavLink to="/login">
+            <NavLink to={authCtx.isLoggedIn ? '/to-watch' : '/login'}>
               <CgUser className="w-8 h-8" />
             </NavLink>
           </div>

@@ -59,7 +59,7 @@ function MovieRates({ movie }) {
   return (
     <div className="my-12">
       {/* <Titles title="Reviews" Icon={BsBookmarkStarFill} /> */}
-      <div className="mt-10 xl:grid flex-colo grid-cols-5 gap-12 bg-dry xs:p-10 py-10 px-2 sm:p-20 rounded">
+      <div className="mt-10 xl:grid flex-colo grid-cols-5 gap-12 bg-dry xs:p-10 py-10 px-2 sm:p-20 rounded md:mx-20">
         {/* write review */}
         {reviewed ? (
           <MovieReview

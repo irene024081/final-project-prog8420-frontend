@@ -16,7 +16,10 @@ function MovieReview(props) {
           }`}
         >
           {props.Reviews.map((user, i) => (
-            <div className="md:grid flex flex-col w-full grid-cols-12 gap-6 bg-dry p-4 border border-gray-800 rounded-lg">
+            <div
+              key={i}
+              className="md:grid flex flex-col w-full grid-cols-12 gap-6 bg-dry p-4 border border-gray-800 rounded-lg"
+            >
               <div className="col-span-2 bg-main hidden md:block">
                 <img
                   src={`/images/${user ? user.image : 'user.png'}`}

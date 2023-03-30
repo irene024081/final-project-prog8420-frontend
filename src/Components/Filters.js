@@ -1,5 +1,5 @@
 import { Listbox, Combobox } from '@headlessui/react';
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useCallback, useEffect } from 'react';
 import { CategoriesData } from '../Data/CategoriesData';
 import { FaAngleDown, FaCheck } from 'react-icons/fa';
 
@@ -28,12 +28,11 @@ const ProducerData = [
   { title: 'Justin Baldoni' },
 ];
 
-function Filters() {
+function Filters(props) {
   const [category, setCategory] = useState({ title: 'Sort By Category' });
   const [year, setYear] = useState(YearData[0]);
   const [rates, setRates] = useState(RatesData[0]);
   const [producer, setProducer] = useState(ProducerData[0]);
-  const [query, setQuery] = useState('');
 
   const Filter = [
     {
@@ -57,6 +56,40 @@ function Filters() {
       items: ProducerData,
     },
   ];
+  const categoryQuery =
+    category.title === 'Sort By Category' ? '' : category.title;
+  const startYearQuery =
+    year.title === 'Sort By Year' ? '' : year.title.split(' - ')[0];
+  const endYearQuery =
+    year.title === 'Sort By Year' ? '' : year.title.split(' - ')[1];
+  const ratesQuery =
+    rates.title === 'Sort By Rates' ? '' : parseInt(rates.title);
+  const producerQuery =
+    producer.title === 'Sort By Producers' ? '' : producer.title;
+  const query = `?category=${categoryQuery}&start_year=${startYearQuery}&end_year=${endYearQuery}&start_rating=${ratesQuery}&end_rating=${
+    ratesQuery === '' ? ratesQuery : ratesQuery + 0.99
+  }&producer=${producerQuery}`;
+
+  const getMoviesHandler = useCallback(async () => {
+    try {
+      const response = await fetch(
+        'http://watchmate.jiakuan.xyz/movie/' + query
+      );
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      const data = await response.json();
+      props.updateMovie(data);
+      console.log(query);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, [query]);
+
+  useEffect(() => {
+    getMoviesHandler();
+  }, [category, year, rates, producer]);
 
   return (
     <div className="my-6 bg-dry border text-dryGray border-gray-800 grid md:grid-cols-4 grid-cols-2 lg:gap-12 gap-2 rounded p-6">
@@ -69,12 +102,6 @@ function Filters() {
                 <FaAngleDown className="h-4 w-4" aria-hidden="true" />
               </span>
             </Listbox.Button>
-            {/* <Transition
-              as={Fragment}
-              leave="transition ease-in duration-100"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            > */}
             <Listbox.Options className="absolute z-10 mt-1 w-full bg-white border border-gray-800 text-dryGray rounded-md shadow-lg max-h-60 py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
               {item.items.map((item, i) => (
                 <Listbox.Option
